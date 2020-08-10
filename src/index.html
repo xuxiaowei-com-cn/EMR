@@ -6,5 +6,113 @@
 </head>
 <body>
 
+<div style="text-align: center;">
+    <iframe id="editor" width="600px" height="400px" style="border:solid 1px;"></iframe>
+</div>
+
+<script type="text/javascript">
+    window.onload = function () {
+        var editor = document.getElementById('editor'); // 获取编辑器
+        var doc = editor.contentDocument || editor.contentWindow.document; // W3C || IE
+        doc.designMode = 'off'; // 禁用编辑
+        doc.contentEditable = 'false'; // 禁用编辑段落
+
+        // 设置页面内容，默认：<html><head></head><body></body></html>
+        doc.write('<html lang="zh"><head><meta charset="UTF-8"><title></title></head><body></body></html>');
+
+        // 头部标题
+        let header = document.createElement('header');
+        header.style.textAlign = 'center';
+        header.innerText = 'XX门诊电子病历'
+        doc.body.appendChild(header);
+
+        let main = document.createElement('main');
+
+        let mainHeader = document.createElement('header');
+        mainHeader.style.marginTop = '20px';
+
+        let patientNameLabel = document.createElement('div');
+        patientNameLabel.innerHTML = '病人姓名：';
+        patientNameLabel.style.marginLeft = '30px';
+        patientNameLabel.style.float = 'left';
+        mainHeader.appendChild(patientNameLabel);
+
+        let patientName = document.createElement('div');
+        patientName.id = 'patientName';
+        patientName.innerHTML = '张伟';
+        patientName.style.float = 'left'
+        mainHeader.appendChild(patientName);
+
+        let patientIdLabel = document.createElement('div');
+        patientIdLabel.innerHTML = '病人ID：';
+        patientIdLabel.style.marginLeft = '30px';
+        patientIdLabel.style.float = 'left'
+        mainHeader.appendChild(patientIdLabel);
+
+        let patientId = document.createElement('div');
+        patientId.id = 'patientId';
+        patientId.innerHTML = '123456';
+        patientId.style.float = 'left'
+        mainHeader.appendChild(patientId);
+
+        main.appendChild(mainHeader);
+
+        let clean = document.createElement('div');
+        clean.style.clear = 'both';
+        main.appendChild(clean);
+
+        let article = document.createElement('article');
+
+        let diagnosisLabel = document.createElement('div');
+        diagnosisLabel.innerHTML = '诊断：';
+        diagnosisLabel.style.marginLeft = '30px';
+        diagnosisLabel.style.float = 'left'
+        article.appendChild(diagnosisLabel);
+
+        let diagnosis = document.createElement('div');
+        diagnosis.innerHTML = '脑膜炎';
+        diagnosis.style.float = 'left';
+        diagnosis.style.width = 'calc(100% - 100px)';
+        diagnosis.style.minHeight = '100px';
+        diagnosis.style.border = 'solid #e2e2e2';
+        diagnosis.designMode = 'on'; // 启用编辑
+        diagnosis.contentEditable = 'true'; // 启用编辑段落
+        article.appendChild(diagnosis);
+
+        main.appendChild(article);
+
+        doc.body.appendChild(main);
+
+        // 按下一个键盘按键时
+        doc.body.onkeydown = function () {
+            return false;
+        };
+
+        // 键盘按键被松开时
+        doc.body.onkeyup = function () {
+            return false;
+        }
+
+        // 键盘按键被按下并释放一个键时
+        doc.body.onkeypress = function () {
+            return false;
+        }
+
+        // 输出内容
+        console.log(doc);
+        console.log(doc.body);
+        console.log(doc.body.innerHTML);
+
+        // 监听 editor frame 右键
+        editor.contentWindow.addEventListener('contextmenu', function (e) {
+
+            // 禁用原右键
+            e.preventDefault();
+
+        })
+
+    }
+</script>
+
 </body>
 </html>
